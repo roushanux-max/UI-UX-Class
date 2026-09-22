@@ -114,7 +114,7 @@ export const SlideVisualCard: React.FC<SlideVisualCardProps> = ({
 
         {/* Visual Image Display with Hover Overlay */}
         <div
-          className="relative aspect-video sm:aspect-16/10 bg-slate-100 dark:bg-slate-950 overflow-hidden cursor-pointer"
+          className="relative aspect-video sm:aspect-[16/8] bg-slate-100 dark:bg-slate-950 overflow-hidden cursor-pointer"
           onClick={() => {
             setZoomLevel(1);
             setIsLightboxOpen(true);
@@ -124,7 +124,7 @@ export const SlideVisualCard: React.FC<SlideVisualCardProps> = ({
             src={visual.url}
             alt={visual.alt}
             referrerPolicy="no-referrer"
-            className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+            className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
             loading="lazy"
           />
 
@@ -146,7 +146,7 @@ export const SlideVisualCard: React.FC<SlideVisualCardProps> = ({
               </p>
             )}
 
-            <p className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-medium">
+            <p className="text-base sm:text-lg text-slate-800 dark:text-slate-200 leading-relaxed font-medium">
               {visual.caption}
             </p>
 

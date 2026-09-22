@@ -122,7 +122,7 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
   const dayQuizResult = getQuizResultForDay(currentSlide.dayNumber);
 
   return (
-    <div className={`transition-all duration-200 ${isCinemaMode ? 'fixed inset-0 z-50 bg-slate-100 dark:bg-slate-950 p-4 sm:p-8 flex flex-col justify-between' : 'max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6'}`}>
+    <div className={`transition-all duration-200 ${isCinemaMode ? 'fixed inset-0 z-50 bg-slate-100 dark:bg-slate-950 p-4 sm:p-8 flex flex-col justify-between' : 'max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-8'}`}>
       {/* Top Controls Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         {/* Day Selector Pills */}
@@ -309,7 +309,7 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
       <div
         ref={containerRef}
         className={`relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl dark:shadow-2xl overflow-hidden flex flex-col justify-between ${
-          isCinemaMode ? 'flex-1 my-2' : 'min-h-[500px]'
+          isCinemaMode ? 'flex-1 my-2' : 'min-h-[680px]'
         }`}
       >
         {/* Slide Header Ribbon */}
@@ -355,7 +355,7 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
         </div>
 
         {/* Slide Main Body Area */}
-        <div className="p-6 sm:p-10 flex-1 flex flex-col justify-center">
+        <div className="p-6 sm:p-12 lg:p-16 flex-1 flex flex-col justify-center">
           {isLocked ? (
             /* Locked Content Gate Screen */
             <div className="max-w-xl mx-auto text-center py-8 space-y-6">
@@ -424,43 +424,31 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
             </div>
           ) : (
             /* Unlocked Slide Content */
-            <div className="space-y-6 max-w-4xl mx-auto w-full animate-in fade-in duration-200">
+            <div className="space-y-8 max-w-6xl mx-auto w-full animate-in fade-in duration-200">
               {/* Slide Heading */}
               <div className="space-y-2 border-b border-slate-200 dark:border-slate-800 pb-4">
-                <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                   {currentSlide.title}
                 </h2>
                 {currentSlide.subtitle && (
-                  <p className="text-sm sm:text-lg font-medium text-sky-600 dark:text-sky-300">
+                  <p className="text-lg sm:text-2xl font-medium text-sky-600 dark:text-sky-300">
                     {currentSlide.subtitle}
                   </p>
                 )}
               </div>
 
-              {/* Bullet Points */}
-              <div className="space-y-3.5">
-                {currentSlide.contentPoints.map((point, pIdx) => (
-                  <div key={pIdx} className="flex items-start gap-3">
-                    <div className="w-2 h-2 rounded-full bg-sky-500 dark:bg-sky-400 mt-2 shrink-0"></div>
-                    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed font-normal">
-                      {point}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
               {currentSlide.visual && (
                 <section
-                  className="space-y-3"
+                  className="order-first space-y-4"
                   aria-labelledby={`visual-study-heading-${currentSlide.id}`}
                 >
                   <div className="flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+                    <BookOpen className="h-5 w-5 text-sky-600 dark:text-sky-400" />
                     <h3
                       id={`visual-study-heading-${currentSlide.id}`}
-                      className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                      className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
                     >
-                      Visual study guide
+                      Look at this visual first
                     </h3>
                   </div>
                   <SlideVisualCard
@@ -475,6 +463,18 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
                   )}
                 </section>
               )}
+
+              {/* Bullet Points */}
+              <div className="space-y-5">
+                {currentSlide.contentPoints.map((point, pIdx) => (
+                  <div key={pIdx} className="flex items-start gap-3">
+                    <div className="mt-3 h-3 w-3 shrink-0 rounded-full bg-sky-500 dark:bg-sky-400"></div>
+                    <p className="text-lg sm:text-xl lg:text-2xl text-slate-700 dark:text-slate-200 leading-relaxed font-normal">
+                      {point}
+                    </p>
+                  </div>
+                ))}
+              </div>
 
               {/* Activity Details (if category === 'activity') */}
               {currentSlide.activityTasks && currentSlide.activityTasks.length > 0 && (
