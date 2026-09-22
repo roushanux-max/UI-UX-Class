@@ -83,7 +83,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-sky-500 selection:text-white transition-colors duration-200">
+    <div className="min-h-screen bg-[#f8f9fb] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-rose-500 selection:text-white transition-colors duration-200">
       {/* Top Navigation */}
       <Navbar
         currentTab={currentTab}

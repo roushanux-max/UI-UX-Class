@@ -62,18 +62,18 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/90 bg-white/95 text-slate-900 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/95 dark:text-white">
-      <div className="mx-auto flex min-h-[4.5rem] max-w-[1600px] items-center justify-between gap-4 px-4 py-3 sm:px-8 lg:px-12">
+    <header className="sticky top-3 z-40 mx-3 rounded-[1.5rem] border border-slate-200/90 bg-[#fbfbfc]/95 text-slate-900 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/95 dark:text-white sm:mx-5">
+      <div className="mx-auto flex min-h-[4.5rem] max-w-[1600px] items-center justify-between gap-4 px-4 py-3 sm:px-7 lg:px-10">
         <button
           onClick={() => selectTab('presentation')}
           className="flex min-w-0 items-center gap-3 text-left"
           aria-label="Open presentation"
         >
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 shadow-lg shadow-sky-500/20">
-            <Sparkles className="h-6 w-6 text-white" />
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-950 shadow-lg shadow-slate-950/15">
+            <Sparkles className="h-5 w-5 text-rose-400" />
           </span>
           <span className="min-w-0">
-            <span className="block truncate text-lg font-black tracking-tight sm:text-xl">UI UX CLASS</span>
+            <span className="block truncate text-lg font-semibold tracking-tight sm:text-xl">UI UX CLASS</span>
             <span className="block truncate text-xs font-medium text-slate-500 dark:text-slate-400 sm:text-sm">
               10-Day Sprint · From Brief to Handoff
             </span>
@@ -93,7 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <ThemeToggle />
           <button
             onClick={() => setIsMenuOpen((open) => !open)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 transition-colors hover:border-rose-300 hover:bg-rose-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
             aria-label={isMenuOpen ? 'Close course menu' : 'Open course menu'}
             aria-expanded={isMenuOpen}
           >
@@ -132,7 +132,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => selectTab(tab as Tab)}
                 className={`flex items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold transition-colors ${
                   currentTab === tab
-                    ? 'bg-sky-600 text-white'
+                    ? 'bg-rose-600 text-white'
                     : 'text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800'
                 }`}
               >

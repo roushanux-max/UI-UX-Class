@@ -120,6 +120,12 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
   const currentDayInfo = SPRINT_DAYS.find((d) => d.dayNumber === currentSlide.dayNumber);
   const isLastSlideOfDay = currentDayInfo ? currentSlide.slideNumberInDay === currentDayInfo.slideCount : false;
   const dayQuizResult = getQuizResultForDay(currentSlide.dayNumber);
+  const lessonStage =
+    currentSlide.category === 'title'
+      ? 0
+      : currentSlide.category === 'activity' || currentSlide.category === 'deliverables'
+        ? 2
+        : 1;
 
   return (
     <div className={`transition-all duration-200 ${isCinemaMode ? 'fixed inset-0 z-50 bg-slate-100 dark:bg-slate-950 p-4 sm:p-8 flex flex-col justify-between' : 'max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-8'}`}>
@@ -433,10 +439,33 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
                   {currentSlide.title}
                 </h2>
                 {currentSlide.subtitle && (
-                  <p className="text-lg sm:text-2xl font-medium text-sky-600 dark:text-sky-300">
+                  <p className="text-lg sm:text-2xl font-medium text-rose-600 dark:text-rose-300">
                     {currentSlide.subtitle}
                   </p>
                 )}
+              </div>
+
+              <div
+                className="grid grid-cols-3 gap-2 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-950/50 p-2"
+                aria-label="Lesson route"
+              >
+                {['Understand', 'See it in context', 'Apply it'].map((stage, index) => (
+                  <div
+                    key={stage}
+                    className={`flex items-center gap-2 rounded-xl px-3 py-2 text-xs sm:text-sm font-semibold transition-colors ${
+                      index === lessonStage
+                        ? 'bg-rose-600 text-white shadow-md'
+                        : index < lessonStage
+                          ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300'
+                          : 'text-slate-500 dark:text-slate-400'
+                    }`}
+                  >
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-current text-[11px]">
+                      {index + 1}
+                    </span>
+                    <span className="leading-tight">{stage}</span>
+                  </div>
+                ))}
               </div>
 
               {/* Learning objectives / explanation */}
@@ -445,7 +474,7 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
                 aria-labelledby={`learning-points-heading-${currentSlide.id}`}
               >
                 <div className="flex items-center gap-2">
-                  <Target className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+                  <Target className="h-5 w-5 text-rose-600 dark:text-rose-400" />
                   <h3
                     id={`learning-points-heading-${currentSlide.id}`}
                     className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
@@ -457,9 +486,9 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
                 {currentSlide.contentPoints.map((point, pIdx) => (
                   <div
                     key={pIdx}
-                    className="flex items-start gap-3 rounded-2xl border border-indigo-100 dark:border-indigo-900/60 bg-indigo-50/60 dark:bg-indigo-950/20 p-4 sm:p-5"
+                    className="flex items-start gap-3 rounded-2xl border border-rose-100 dark:border-rose-900/60 bg-rose-50/60 dark:bg-rose-950/20 p-4 sm:p-5"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-bold text-white">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-rose-600 text-sm font-bold text-white">
                       {pIdx + 1}
                     </span>
                     <p className="text-base sm:text-lg lg:text-xl text-slate-700 dark:text-slate-200 leading-relaxed">
