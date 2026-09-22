@@ -188,7 +188,7 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
             </button>
           )}
 
-          {currentDayInfo?.campusTestingGuide && (
+          {currentDayInfo?.campusTestingGuide && (currentSlide.category === 'activity' || isLastSlideOfDay) && (
             <button
               onClick={() => setShowCampusGuideModal(true)}
               className="px-2.5 py-1 rounded-md text-xs font-medium bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/40 hover:bg-emerald-200 dark:hover:bg-emerald-500/30 transition-colors flex items-center gap-1.5 cursor-pointer shadow-sm"
@@ -439,9 +439,40 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
                 )}
               </div>
 
+              {/* Learning objectives / explanation */}
+              <section
+                className="space-y-4"
+                aria-labelledby={`learning-points-heading-${currentSlide.id}`}
+              >
+                <div className="flex items-center gap-2">
+                  <Target className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+                  <h3
+                    id={`learning-points-heading-${currentSlide.id}`}
+                    className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
+                  >
+                    What students should understand
+                  </h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {currentSlide.contentPoints.map((point, pIdx) => (
+                  <div
+                    key={pIdx}
+                    className="flex items-start gap-3 rounded-2xl border border-indigo-100 dark:border-indigo-900/60 bg-indigo-50/60 dark:bg-indigo-950/20 p-4 sm:p-5"
+                  >
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-bold text-white">
+                      {pIdx + 1}
+                    </span>
+                    <p className="text-base sm:text-lg lg:text-xl text-slate-700 dark:text-slate-200 leading-relaxed">
+                      {point}
+                    </p>
+                  </div>
+                ))}
+                </div>
+              </section>
+
               {currentSlide.visual && (
                 <section
-                  className="order-first space-y-4"
+                  className="space-y-4"
                   aria-labelledby={`visual-study-heading-${currentSlide.id}`}
                 >
                   <div className="flex items-center gap-2">
@@ -450,7 +481,7 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
                       id={`visual-study-heading-${currentSlide.id}`}
                       className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400"
                     >
-                      Look at this visual first
+                      See it in context
                     </h3>
                   </div>
                   <SlideVisualCard
@@ -466,17 +497,9 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
                 </section>
               )}
 
-              {/* Bullet Points */}
-              <div className="space-y-5">
-                {currentSlide.contentPoints.map((point, pIdx) => (
-                  <div key={pIdx} className="flex items-start gap-3">
-                    <div className="mt-3 h-3 w-3 shrink-0 rounded-full bg-sky-500 dark:bg-sky-400"></div>
-                    <p className="text-lg sm:text-xl lg:text-2xl text-slate-700 dark:text-slate-200 leading-relaxed font-normal">
-                      {point}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              {/* Practice and apply */}
+              {(currentSlide.activityTasks?.length || currentSlide.homeworkTasks?.length || currentSlide.realWorldExample || (currentSlide.category === 'activity' && currentDayInfo?.featuredTopActivity)) && (
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
 
               {/* Activity Details (if category === 'activity') */}
               {currentSlide.activityTasks && currentSlide.activityTasks.length > 0 && (
@@ -540,10 +563,10 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
               )}
 
               {/* In-Slide Real World Case Study Box (if available for this slide or day) */}
-              {(currentSlide.realWorldExample || currentDayInfo?.featuredExample) && (
+              {currentSlide.realWorldExample && (
                 <div className="p-5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40 space-y-3">
                   {(() => {
-                    const ex = currentSlide.realWorldExample || currentDayInfo?.featuredExample!;
+                    const ex = currentSlide.realWorldExample;
                     return (
                       <>
                         <div className="flex items-center justify-between">
@@ -683,6 +706,8 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
                     </p>
                   </div>
                 </div>
+              )}
+              </div>
               )}
 
               {/* End-of-Day Knowledge Check Card (displayed on the last slide of each sprint day) */}
