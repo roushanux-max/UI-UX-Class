@@ -89,6 +89,8 @@ export interface SlideVisual {
   caption: string;
   source: string;
   sourceArticle?: string;
+  referenceUrl?: string;
+  youtubeUrl?: string;
   diagramType?: 'framework' | 'comparison' | 'process' | 'heuristic' | 'interface' | 'matrix' | 'case_study';
   badge?: string;
   keyInsights?: string[];

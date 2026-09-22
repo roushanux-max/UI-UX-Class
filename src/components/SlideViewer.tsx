@@ -308,6 +308,8 @@ export const SlideViewer: React.FC<SlideViewerProps> = ({
       {/* Main Slide Card Container */}
       <div
         ref={containerRef}
+        key={currentSlide.id}
+        aria-live="polite"
         className={`relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl dark:shadow-2xl overflow-hidden flex flex-col justify-between ${
           isCinemaMode ? 'flex-1 my-2' : 'min-h-[680px]'
         }`}

@@ -35,6 +35,16 @@ const SOURCE_LINKS: Record<string, string> = {
 const getSourceLink = (source: string) =>
   Object.entries(SOURCE_LINKS).find(([label]) => source.includes(label))?.[1];
 
+const getYoutubeLink = (visual: SlideVisual, slideTitle?: string) => {
+  if (visual.youtubeUrl) return visual.youtubeUrl;
+
+  const query = [slideTitle, visual.sourceArticle, visual.source]
+    .filter(Boolean)
+    .join(' ');
+
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+};
+
 const getStudyPrompt = (diagramType?: SlideVisual['diagramType']) => {
   switch (diagramType) {
     case 'framework':
@@ -60,7 +70,8 @@ export const SlideVisualCard: React.FC<SlideVisualCardProps> = ({
 }) => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
-  const sourceLink = getSourceLink(visual.source);
+  const sourceLink = visual.referenceUrl || getSourceLink(visual.source);
+  const youtubeLink = getYoutubeLink(visual, slideTitle);
 
   const handleZoomIn = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -177,17 +188,28 @@ export const SlideVisualCard: React.FC<SlideVisualCardProps> = ({
             </div>
           )}
 
-          {sourceLink && (
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            {sourceLink && (
+              <a
+                href={sourceLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-sky-700 dark:text-sky-300 hover:underline"
+              >
+                Explore {visual.source} resources
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
             <a
-              href={sourceLink}
+              href={youtubeLink}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-sky-700 dark:text-sky-300 hover:underline"
+              className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-red-600 dark:text-red-400 hover:underline"
             >
-              Explore {visual.source} resources
+              Watch a YouTube explanation
               <ExternalLink className="w-3 h-3" />
             </a>
-          )}
+          </div>
         </div>
       </div>
 
@@ -303,6 +325,15 @@ export const SlideVisualCard: React.FC<SlideVisualCardProps> = ({
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               )}
+              <a
+                href={youtubeLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-red-600 dark:text-red-400 hover:underline"
+              >
+                Watch a YouTube explanation
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
 
               {visual.keyInsights && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
