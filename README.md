@@ -4,7 +4,7 @@
 
 # Run and deploy your AI Studio app
 
-This contains everything you need to run your app locally.
+This contains everything you need to run the app locally.
 
 View your app in AI Studio: https://ai.studio/apps/7d07cc51-551e-46d3-88a9-ebaa6a1c81fa
 
@@ -18,6 +18,10 @@ View your app in AI Studio: https://ai.studio/apps/7d07cc51-551e-46d3-88a9-ebaa6
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## Classroom presentation mode
+
+The presentation is designed for classroom projection: use the compact header's hamburger button for navigation and controls, then use Cinema mode from the menu to maximize the current slide. Each slide includes a visual study guide with source attribution, a teaching prompt, and a link to the original reference.
 
 ## Enable Google Sign-In locally
 
