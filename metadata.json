@@ -1,0 +1,6 @@
+{
+  "name": "UI UX Class Presentation",
+  "description": "Interactive 10-day UX Design Sprint platform with daily knowledge check quizzes, Google Authentication, automatic system light/dark theme adaptation, college fieldwork briefs, and role-based access control.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
